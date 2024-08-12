@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "telegram-filter-notifai"
+version = "0.1.0"
+description = "A smart tool for filtering and notifying relevant Telegram messages based on custom criteria, leveraging AI to streamline your Telegram experience"
+authors = ["Leynier Gutiérrez González <leynier41@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydbantic = { version = "^0.0.47", extras = ["sqlite"] }
+openai = "^1.40.3"
+pyrogram = "^2.0.106"
+tgcrypto = "^1.2.5"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
