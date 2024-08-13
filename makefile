@@ -1,0 +1,2 @@
+run:
+	telegram-filter-notifai

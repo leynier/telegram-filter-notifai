@@ -5,12 +5,16 @@ description = "A smart tool for filtering and notifying relevant Telegram messag
 authors = ["Leynier Gutiérrez González <leynier41@gmail.com>"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+telegram-filter-notifai = "telegram_filter_notifai.main:run"
+
 [tool.poetry.dependencies]
 python = "^3.11"
 pydbantic = { version = "^0.0.47", extras = ["sqlite"] }
 openai = "^1.40.3"
 pyrogram = "^2.0.106"
 tgcrypto = "^1.2.5"
+python-dotenv = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.5.7"
