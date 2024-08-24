@@ -4,8 +4,10 @@ from typer import Typer
 
 from .broadcast import broadcast as broadcast_messages
 from .listen import listen as listen_messages
+from .monkeypatch import monkeypatch
 from .telegram import get_telegram_client
 
+monkeypatch()
 load_dotenv()
 uvloop.install()
 
