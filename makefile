@@ -4,3 +4,5 @@ install:
 listen:
 	uv run telegram-filter-notifai listen
 
+broadcast:
+	uv run telegram-filter-notifai broadcast
