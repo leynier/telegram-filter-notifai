@@ -1,27 +1,33 @@
-[tool.poetry]
+[project]
 name = "telegram-filter-notifai"
 version = "0.1.0"
 description = "A smart tool for filtering and notifying relevant Telegram messages based on custom criteria, leveraging AI to streamline your Telegram experience"
-authors = ["Leynier Gutiérrez González <leynier41@gmail.com>"]
+authors = [
+    { name = "Leynier Gutiérrez González", email = "leynier41@gmail.com" },
+]
 readme = "README.md"
 
-[tool.poetry.scripts]
-telegram-filter-notifai = "telegram_filter_notifai.main:run"
+requires-python = ">=3.11"
 
-[tool.poetry.dependencies]
-python = "^3.11"
-pydbantic = { version = "^0.0.47", extras = ["sqlite"] }
-openai = "^1.40.3"
-pyrogram = "^2.0.106"
-tgcrypto = "^1.2.5"
-python-dotenv = "^1.0.1"
+dependencies = [
+    "pydbantic[sqlite]>=0.0.47",
+    "openai>=1.42.0",
+    "pyrogram>=2.0.106",
+    "tgcrypto>=1.2.5",
+    "python-dotenv>=1.0.1",
+    "uvloop>=0.20.0",
+    "typer>=0.12.4",
+]
 
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.5.7"
+[tool.uv]
+dev-dependencies = ["ruff>=0.6.2"]
+
+[project.scripts]
+telegram-filter-notifai = "telegram_filter_notifai.main:app"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.ruff]
 line-length = 88
