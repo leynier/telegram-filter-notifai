@@ -52,7 +52,7 @@ def get_message_title(message: Message) -> str:
 
 async def get_messages_with_caption_from_chat(
     app: Client,
-    from_chat: str,
+    from_chat: int,
     limit: int = 100,
 ) -> list[Message]:
     messages: list[Message] = []
@@ -70,7 +70,7 @@ async def send_message(
     media_list: list[
         InputMediaPhoto | InputMediaVideo | InputMediaAudio | InputMediaDocument
     ],
-    to_chat: str,
+    to_chat: int,
 ):
     message_title = get_message_title(message)
     chat = await app.get_chat(to_chat)
@@ -89,16 +89,26 @@ async def send_message(
 
 def broadcast(app: Client):
     from_chat = environ.get("BROADCAST_FROM_CHAT")
-    to_chats = environ.get("BROADCAST_TO_CHATS")
     if not from_chat:
         raise ValueError(
             "BROADCAST_FROM_CHAT is not set in the environment variables or .env file"
         )
+    try:
+        from_chat = int(from_chat)
+    except ValueError:
+        raise ValueError("BROADCAST_FROM_CHAT environment variable must be an integer")
+    to_chats = environ.get("BROADCAST_TO_CHATS")
     if not to_chats:
         raise ValueError(
             "BROADCAST_TO_CHATS is not set in the environment variables or .env file"
         )
     to_chats = to_chats.split(",")
+    try:
+        to_chats = [int(to_chat) for to_chat in to_chats]
+    except ValueError:
+        raise ValueError(
+            "BROADCAST_TO_CHATS environment variable must be a list of integers"
+        )
 
     async def main():
         async with app:
