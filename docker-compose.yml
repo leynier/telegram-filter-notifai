@@ -11,9 +11,9 @@ services:
   telegram-filter-notifai-listen:
     <<: *telegram-filter-notifai-base
     container_name: telegram-filter-notifai-listen
-    command: uv run telegram-filter-notifai listen
+    command: make listen
 
   telegram-filter-notifai-broadcast:
     <<: *telegram-filter-notifai-base
     container_name: telegram-filter-notifai-broadcast
-    command: uv run telegram-filter-notifai broadcast
+    command: make broadcast
