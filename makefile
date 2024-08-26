@@ -6,3 +6,6 @@ listen:
 
 broadcast:
 	uv run telegram-filter-notifai broadcast
+
+broadcast-up:
+	docker-compose up --build -d telegram-filter-notifai-broadcast

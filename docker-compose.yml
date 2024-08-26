@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  telegram-filter-notifai-broadcast:
+    build:
+      context: .
+      dockerfile: dockerfile.broadcast
+    container_name: telegram-filter-notifai-broadcast
+    volumes:
+      - .:/app
+    command: make broadcast
