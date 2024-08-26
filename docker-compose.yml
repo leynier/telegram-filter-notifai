@@ -7,8 +7,6 @@ services:
       - .:/app
       - ./sessions:/app/sessions
       - ./data:/app/data
-    environment:
-      - PYROGRAM_SESSION_NAME=telegram_filter_notifai
 
   telegram-filter-notifai-listen:
     <<: *telegram-filter-notifai-base
