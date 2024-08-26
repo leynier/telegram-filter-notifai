@@ -8,6 +8,9 @@ services:
     container_name: telegram-filter-notifai-listen
     volumes:
       - .:/app
+      - ./sessions:/app/sessions
+    environment:
+      - PYROGRAM_SESSION_NAME=telegram_filter_notifai
     command: uv run telegram-filter-notifai listen
 
   telegram-filter-notifai-broadcast:
@@ -17,4 +20,7 @@ services:
     container_name: telegram-filter-notifai-broadcast
     volumes:
       - .:/app
+      - ./sessions:/app/sessions
+    environment:
+      - PYROGRAM_SESSION_NAME=telegram_filter_notifai
     command: uv run telegram-filter-notifai broadcast

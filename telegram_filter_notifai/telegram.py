@@ -4,6 +4,8 @@ from pyrogram.client import Client
 
 
 def get_telegram_client() -> Client:
+    session_name = environ.get("PYROGRAM_SESSION_NAME", "telegram_filter_notifai")
+    session_path = f"./sessions/{session_name}"
     telegram_api_id = environ.get("TELEGRAM_API_ID")
     telegram_api_hash = environ.get("TELEGRAM_API_HASH")
     if not telegram_api_id:
@@ -15,7 +17,7 @@ def get_telegram_client() -> Client:
             "TELEGRAM_API_HASH is not set in the environment variables or .env file"
         )
     telegram_client = Client(
-        "telegram_filter_notifai",
+        session_path,
         api_id=telegram_api_id,
         api_hash=telegram_api_hash,
     )
