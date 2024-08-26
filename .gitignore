@@ -32,3 +32,6 @@ env/
 Thumbs.db
 
 .env
+
+data/
+sessions/

@@ -1,5 +1,5 @@
 from datetime import UTC, datetime
-from os import environ
+from os import environ, makedirs
 from types import EllipsisType
 from typing import Any, cast
 from uuid import uuid4
@@ -23,10 +23,13 @@ async def load_database():
     global __data_base_is_already_loaded
     if __data_base_is_already_loaded:
         return
+    default_database_url = "sqlite:///./data/telegram-filter-notifai.db"
     database_url = environ.get(
         "DATABASE_URL",
-        "sqlite:///./data/telegram-filter-notifai.db",
+        default_database_url,
     )
+    if database_url == default_database_url:
+        makedirs("data", exist_ok=True)
     await Database.create(
         database_url,
         tables=[Message],
