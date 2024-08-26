@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from os import environ
 from random import shuffle
 
@@ -12,13 +13,19 @@ from pyrogram.types import (
     Message,
 )
 
+logging.basicConfig(
+    filename="broadcast.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
 
 async def wait_minutes(time_in_minutes: int, interval: int = 5):
     for i in range(0, 60 * time_in_minutes, interval):
         total_seconds = 60 * time_in_minutes - i
         minutes = total_seconds // 60
         seconds = total_seconds % 60
-        print(f"Waiting for {minutes} minutes and {seconds} seconds")
+        logging.info(f"Waiting for {minutes} minutes and {seconds} seconds")
         await asyncio.sleep(interval)
 
 
@@ -75,16 +82,16 @@ async def send_message(
     message_title = get_message_title(message)
     chat = await app.get_chat(to_chat)
     if not isinstance(chat, Chat):
-        print(f"Chat {chat.title} is only preview")
+        logging.warning(f"Chat {chat.title} is only preview")
         return
     try:
         if media_list:
             await app.send_media_group(chat.id, media_list)
         else:
             await message.forward(chat.id)
-        print(f"Message {message_title} has been sent to {chat.title}")
+        logging.info(f"Message {message_title} has been sent to {chat.title}")
     except Exception as e:
-        print(f"Failed to send message {message_title} to {chat.title}: {e}")
+        logging.error(f"Failed to send message {message_title} to {chat.title}: {e}")
 
 
 def broadcast(app: Client):
@@ -118,10 +125,10 @@ def broadcast(app: Client):
                 for message in messages:
                     message_title = get_message_title(message)
                     media_list = await get_message_media_list(app, message)
-                    print(f"Start to send the message: {message_title}")
+                    logging.info(f"Start to send the message: {message_title}")
                     for to_chat in to_chats:
                         await send_message(app, message, media_list, to_chat)
-                    print(f"Finish to send the message: {message_title}")
+                    logging.info(f"Finish to send the message: {message_title}")
                     await wait_minutes(10)
 
     app.run(main())
