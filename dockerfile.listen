@@ -7,4 +7,4 @@ WORKDIR /app
 
 RUN uv sync --frozen
 
-CMD ["uv", "run", "telegram-filter-notifai", "broadcast"]
+CMD ["uv", "run", "telegram-filter-notifai", "listen"]

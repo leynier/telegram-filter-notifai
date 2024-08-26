@@ -1,6 +1,15 @@
 version: "3.8"
 
 services:
+  telegram-filter-notifai-listen:
+    build:
+      context: .
+      dockerfile: dockerfile.listen
+    container_name: telegram-filter-notifai-listen
+    volumes:
+      - .:/app
+    command: uv run telegram-filter-notifai listen
+
   telegram-filter-notifai-broadcast:
     build:
       context: .
@@ -8,4 +17,4 @@ services:
     container_name: telegram-filter-notifai-broadcast
     volumes:
       - .:/app
-    command: make broadcast
+    command: uv run telegram-filter-notifai broadcast
