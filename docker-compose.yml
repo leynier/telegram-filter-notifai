@@ -1,26 +1,21 @@
 version: "3.8"
 
 services:
-  telegram-filter-notifai-listen:
-    build:
-      context: .
-      dockerfile: dockerfile.listen
-    container_name: telegram-filter-notifai-listen
+  telegram-filter-notifai-base: &telegram-filter-notifai-base
+    build: .
     volumes:
       - .:/app
       - ./sessions:/app/sessions
+      - ./data:/app/data
     environment:
       - PYROGRAM_SESSION_NAME=telegram_filter_notifai
+
+  telegram-filter-notifai-listen:
+    <<: *telegram-filter-notifai-base
+    container_name: telegram-filter-notifai-listen
     command: uv run telegram-filter-notifai listen
 
   telegram-filter-notifai-broadcast:
-    build:
-      context: .
-      dockerfile: dockerfile.broadcast
+    <<: *telegram-filter-notifai-base
     container_name: telegram-filter-notifai-broadcast
-    volumes:
-      - .:/app
-      - ./sessions:/app/sessions
-    environment:
-      - PYROGRAM_SESSION_NAME=telegram_filter_notifai
     command: uv run telegram-filter-notifai broadcast

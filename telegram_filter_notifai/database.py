@@ -25,7 +25,7 @@ async def load_database():
         return
     database_url = environ.get(
         "DATABASE_URL",
-        "sqlite:///telegram-filter-notifai.db",
+        "sqlite:///./data/telegram-filter-notifai.db",
     )
     await Database.create(
         database_url,
