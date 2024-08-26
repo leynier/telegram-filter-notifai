@@ -7,23 +7,29 @@ install-dev:
 listen:
 	uv run telegram-filter-notifai listen
 
-broadcast:
-	uv run telegram-filter-notifai broadcast
+listen-build:
+	docker-compose build telegram-filter-notifai-listen
 
-listen-up:
+listen-run-bash:
 	docker-compose run --rm telegram-filter-notifai-listen bash
 
 listen-up-d:
 	docker-compose up --build -d telegram-filter-notifai-listen
 
-broadcast-up:
+listen-logs:
+	tail -f listen.log
+
+broadcast:
+	uv run telegram-filter-notifai broadcast
+
+broadcast-build:
+	docker-compose build telegram-filter-notifai-broadcast
+
+broadcast-run-bash:
 	docker-compose run --rm telegram-filter-notifai-broadcast bash
 
 broadcast-up-d:
 	docker-compose up --build -d telegram-filter-notifai-broadcast
-
-listen-logs:
-	tail -f listen.log
 
 broadcast-logs:
 	tail -f broadcast.log
